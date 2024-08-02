@@ -24,6 +24,7 @@ h1{
 .pill{
   display: flex;
   border: 1px solid black;
+  cursor: pointer;
   border-radius:2px  ;
   align-items: center;
   justify-content: center;

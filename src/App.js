@@ -14,17 +14,7 @@ const [selected,setSelected] = useState([])
 const [suggestionset,setSuggestionset] = useState(new Set())
 
 
-const fetchAPI = async()=>{
 
-  const res = await fetch(`https://dummyjson.com/users/search?q=${inputText}`)
-  const data = await res.json()
-
-  console.log(data)
-
-  const filtered = data.users.filter((user)=>!suggestionset.has(user.email))
-  setSuggestions(filtered)
-
-}
 const handlePillClick = (mail)=>{
   const updatedselection = selected.filter((user)=>user.email!==mail)
   setSelected(updatedselection)
@@ -46,9 +36,20 @@ console.log(suggestions)
   setSuggestions((prevsuggestions)=>prevsuggestions.filter((ele)=>ele.email!==selectedItem.email))
 }
 useEffect(()=>{
+  const fetchAPI = async()=>{
+
+    const res = await fetch(`https://dummyjson.com/users/search?q=${inputText}`)
+    const data = await res.json()
+  
+    console.log(data)
+  
+    const filtered = data.users.filter((user)=>!suggestionset.has(user.email))
+    setSuggestions(filtered)
+  
+  }
 
   fetchAPI()
-},[inputText])
+},[inputText,suggestionset])
 
   return (
     <div className="App"><h1>Pill in React</h1>
